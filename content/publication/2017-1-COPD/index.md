@@ -3,11 +3,11 @@ title: "Comparison of hospital outcomes and resource utilization in acute COPD e
 authors:
 - Khalid Abusaada MD FACP
 - Leen Alsaleh MD
-- Victor Herrera MD,
+- Victor Herrera MD
 - admin 
 - Hassan Baig MD
 - George Everett MD FACP
-date: "2019-08-16T00:00:00Z"
+date: "2017-01-04T00:00:00Z"
 doi: "10.1111/jep.12688"
 
 # Schedule page publish date (NOT publication's date).

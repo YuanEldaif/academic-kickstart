@@ -5,7 +5,7 @@ authors:
 - admin
 - Cristina Gomez
 - Judith Ortiz
-date: "2019-08-17T00:00:00Z"
+date: "2017-08-07T00:00:00Z"
 doi: "10.1089/pop.2017.0096"
 
 # Schedule page publish date (NOT publication's date).

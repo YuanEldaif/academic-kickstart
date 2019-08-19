@@ -1,0 +1,71 @@
+---
+title: R Markdown Introduction
+author: 
+- admin
+date: 2019-07-07
+math: true
+diagram: true
+markup: mmark
+
+#date: '2019-07-07'
+slug: r-markdown-introduction
+categories:
+  - R
+tags:
+  - R Markdown
+image:
+  placement: 3
+  caption: '[**R Markdown**](https://raw.githubusercontent.com/rstudio/hex-stickers/master/PNG/rmarkdown.png)'
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+# R Markdown
+
+The first time that I used R Markdown was back to 2014 when I was in graduate school. Unfortunately, I haven't used this as much as I would like to due to the inconvinience with IT in the hospital. I'm slowly trying to use Rstudio more and more as SAS has limited options on some analysis. R markdown is great for documenting R code and math expressions.
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+fit <- lm(dist ~ speed, data = cars)
+fit
+```
+
+# Including Plots
+
+You can also embed plots. See Figure \@ref(fig:pie) for example:
+
+
+```{r pie, fig.cap='A fancy pie chart.', tidy=FALSE}
+par(mar = c(0, 1, 0, 1))
+pie(
+  c(280, 60, 20),
+  c('Sky', 'Sunny side of pyramid', 'Shady side of pyramid'),
+  col = c('#0292D8', '#F7EA39', '#C4B632'),
+  init.angle = -50, border = NA
+)
+```
+
+# Including Flow Chart
+
+You can embed a flow chart. See Figure \@ref(fig:flow) for example:
+
+```{r flow, fig.cap='A flow chart.', tidy=FALSE}
+DiagrammeR::grViz("digraph {
+graph [layout = dot, rankdir = LR]
+
+# define the global styles of the nodes. We can override these in box if we wish
+
+node [shape = rectangle, style = filled, fillcolor = Linen]
+First [label =  '1. \n Create \n Github Repository']
+Second [label = '2. \n Create R blogdown \n in R Studio']
+Third [label= '3. \n Deploy the web \n by Netlify']
+
+# edge definitions with the node IDs
+First -> Second -> Third
+}", height=150)
+```

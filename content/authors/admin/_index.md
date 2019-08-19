@@ -23,12 +23,12 @@ organizations:
   
 # Short bio (displayed in user profile at end of posts)
 #bio: My research interests include distributed robotics, mobile computing and programmable matter.
-bio: Yuan Du is a Biostatistician at AdventHealth in Orlando, FL. She is also doing her PhD in Big Data Analytics. Her interests include applied Statitics and Data Science.
+bio: My interests include applied Statitics, Data Science and Healthcare.
 
 interests:
 - Applied Statistics
 - Data Science
-- Health Care
+- Healthcare
 
 education:
   courses:

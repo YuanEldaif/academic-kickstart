@@ -1,0 +1,56 @@
+---
+title: Publish R blogdown by Netlify
+author: Yuan Du
+date: '2019-07-12'
+slug: create-and-pushlish-rblogdown-by-netlify
+tags:
+- R Markdown
+- Github
+- Netflify
+categories: 
+- R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-08-19T00:25:34-04:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+I'm a noobie on using Github and Hugo. :blush: It took me quite a while to figure out how to use version control on Github through Rstudio. In this blog, I would like to share my obstacles on publishing website to Github and deploying my website by Netflify. Some of the obstacles were caused by not understanding the structure and workflow of Github/Blogdown because I took a shortcut by googling and trials & errors and didn't have patience to read all the details of the Yihui's excellent [guidelines](https://bookdown.org/yihui/blogdown/). If you are a really new user as me with no website experience, hope this blog is helpful for you. You can skip some of the dump obstacles that you hopefully will not run into. :pray:
+
+
+- Make sure your R and Rstudio version is up-to-date. [Here](https://bootstrappers.umassmed.edu/bootstrappers-courses/courses/rCourse/Additional_Resources/Updating_R.html) you can find how to update R and Rstudio.
+
+- Steps of creating blogdown in Rstudio, github repo and Netlify
+
+General steps Recommended:
+{{< figure src="Diagram.png" title="" lightbox="true">}}
+<!--html_preserve--><div id="htmlwidget-328d27bb0c4804188f47" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-328d27bb0c4804188f47">{"x":{"diagram":"digraph {\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\nFirst [label =  \"1. \n Create \n Github Repository\"]\nSecond [label = \"2. \n Create R blogdown \n in R Studio\"]\nThird [label= \"3. \n Deploy the web \n by Netlify\"]\n\n# edge definitions with the node IDs\nFirst -> Second -> Third\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+1. I highly recommend you create a Github repository **before** you create blogdown as we have to use Github repo `<repo name>` to store all blogdown source files and deploy the `_public_` folder by Netlify.Here are the steps that needs to pay attention when using Github:
+
+  + Click the _Clone or download_ green button and copy URL.
+  + In Rstudio terminal **Change** directory to Github repo you just created `<repo name>` by using `cd <repo name>`.
+  + Run `git clone <GitHub URL>` to clone new repository.
+  
+2. Build your blogdown in R Studio. I believe this step is easy to find either by watching the great [RStudio Blogdown Webnair Video 2018](https://resources.rstudio.com/wistia-rstudio-conf-2018-2/create-and-maintain-websites-with-r-markdown-and-blogdown-yihui-xie-2) to get started or read some parts in the book by Yihui. You can refer to my previous blog about [change to your own logo](https://yuandu.netlify.com/2019/07/07/create-your-own-logo/). You should decide if you will use R markdown or Markdown for each blog.
+  + A tip to select multiple items to commit is by `git add .`^[There is a space between "add" and "."] and `git commit -m "your message"` and `git push origin master` in the terminal.
+  + Add a file for the post that contains pictures. To reference the picture from the post, a folder should be created under path `static/post`.
+  + Sometimes the `Viewer` doesn't display the content. What worked for me is that I restart the R session and render my post with **`blogdown::serve_site()`** manually in the Console.Also, try to update packages by using `update.packages(ask = FALSE, checkBuilt = TRUE)`
+  + My post that's written by R markdown doesn't generate html file and then the blog coudln't be deployed. so by manually **Knit** to html to generate the file solved the problem.
+  + Add emojis. In `config.toml`, put `enableEmoji = true` to enable the function. You can find emoji cheatsheet [here](https://www.webfx.com/tools/emoji-cheat-sheet/).
+  
+3. Deploy the website on netlify for free requires below steps:
+  + Create a netlify account by linking with Github
+  + Name your website in `config.toml` file under `baseurl =`. followed by the netlify subdomain `.netlify.com/`. Remember to have **backslash "/"** at the end. 
+  + Add the build settings. Push the "hugo" as the Build command and "public" as the Publish directory.
+  {{< figure src="NetlifySet.png" title="" lightbox="true" >}}
+#  ![](/post/2019-07-12-create-and-pushlish-rblogdown-by-netlify_files/NetlifySet.#png)
+  + check Hugo version `blogdown::hugo_version()`
+
+Hope above solutions are helpful to you. :beers:

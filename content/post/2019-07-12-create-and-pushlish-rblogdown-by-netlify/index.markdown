@@ -28,9 +28,9 @@ I'm a noobie on using Github and Hugo. :blush: It took me quite a while to figur
 - Steps of creating blogdown in Rstudio, github repo and Netlify
 
 General steps Recommended:
-{{< figure src="Diagram.png" title="" lightbox="true">}}
-<!--html_preserve--><div id="htmlwidget-328d27bb0c4804188f47" style="width:672px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-328d27bb0c4804188f47">{"x":{"diagram":"digraph {\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\nFirst [label =  \"1. \n Create \n Github Repository\"]\nSecond [label = \"2. \n Create R blogdown \n in R Studio\"]\nThird [label= \"3. \n Deploy the web \n by Netlify\"]\n\n# edge definitions with the node IDs\nFirst -> Second -> Third\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+
+{{< figure src="Diag.png" title=" " lightbox="true" >}}
 
 1. I highly recommend you create a Github repository **before** you create blogdown as we have to use Github repo `<repo name>` to store all blogdown source files and deploy the `_public_` folder by Netlify.Here are the steps that needs to pay attention when using Github:
 

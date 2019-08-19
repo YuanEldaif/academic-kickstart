@@ -28,9 +28,13 @@ I'm a noobie on using Github and Hugo. :blush: It took me quite a while to figur
 - Steps of creating blogdown in Rstudio, github repo and Netlify
 
 General steps Recommended:
-{{< figure src="Diagram.png" title="" lightbox="true">}}
-```{r, echo=FALSE}
-DiagrammeR::grViz("digraph {
+
+```{r, echo=FALSE, message=FALSE}
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
+
+Diag <- DiagrammeR::grViz("digraph {
 graph [layout = dot, rankdir = LR]
 
 # define the global styles of the nodes. We can override these in box if we wish
@@ -41,8 +45,14 @@ Third [label= '3. \n Deploy the web \n by Netlify']
 
 # edge definitions with the node IDs
 First -> Second -> Third
-}")
+}", height=200)
+
+tmp<-capture.output(rsvg_png(charToRaw(export_svg(Diag)),'Diag.png'))
+#cat('![flowchart](Diag.png){#fig:flow}\n\n')
+
+
 ```
+{{< figure src="Diag.png" title=" " lightbox="true" >}}
 
 1. I highly recommend you create a Github repository **before** you create blogdown as we have to use Github repo `<repo name>` to store all blogdown source files and deploy the `_public_` folder by Netlify.Here are the steps that needs to pay attention when using Github:
 

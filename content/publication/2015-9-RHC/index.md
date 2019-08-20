@@ -26,8 +26,8 @@ abstract: The enactment of the Patient Protection and Affordable Care Act (ACA) 
 summary: A generalized estimating equation of sixteen predictors was analyzed for the variability in risk-adjusted readmission rates.
 
 tags:
-- Rural health 
-- clinics Affordable Care Act 
+- Rural health clinics
+- Affordable Care Act 
 - readmissions Risk-adjusted rate
 - Generalized estimating equation 
 featured: false

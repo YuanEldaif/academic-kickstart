@@ -10,9 +10,10 @@ markup: mmark
 #date: '2019-07-07'
 slug: r-markdown-introduction
 categories:
-  - R
+  - R Blogdown
 tags:
   - R Markdown
+  - R Blogdown
 image:
   placement: 3
   caption: '[**R Markdown**](https://raw.githubusercontent.com/rstudio/hex-stickers/master/PNG/rmarkdown.png)'

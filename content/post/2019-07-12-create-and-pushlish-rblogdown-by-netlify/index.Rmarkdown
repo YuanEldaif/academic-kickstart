@@ -5,10 +5,11 @@ date: '2019-07-12'
 slug: create-and-pushlish-rblogdown-by-netlify
 tags:
 - R Markdown
+- R Blogdown
 - Github
 - Netflify
 categories: 
-- R
+- R Blogdown
 subtitle: ''
 summary: ''
 authors: []

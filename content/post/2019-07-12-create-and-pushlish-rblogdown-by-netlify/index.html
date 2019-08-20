@@ -1,0 +1,88 @@
+---
+title: Publish R blogdown by Netlify
+author: 
+- admin
+date: 2019-07-12
+math: true
+diagram: true
+markup: mmark
+
+#date: '2019-07-07'
+slug: create-and-pushlish-rblogdown-by-netlify
+tags:
+- R Markdown
+- Github
+- Netflify
+categories: 
+- R
+
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/viz/viz.js"></script>
+<link href="/rmarkdown-libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/grViz-binding/grViz.js"></script>
+
+
+<p>I’m a noobie on using Github and Hugo. :blush: It took me quite a while to figure out how to use version control on Github through Rstudio. In this blog, I would like to share my obstacles on publishing website to Github and deploying my website by Netflify. Some of the obstacles were caused by not understanding the structure and workflow of Github/Blogdown because I took a shortcut by googling and trials &amp; errors and didn’t have patience to read all the details of the Yihui’s excellent <a href="https://bookdown.org/yihui/blogdown/">guidelines</a>. If you are a really new user as me with no website experience, hope this blog is helpful for you. You can skip some of the dump obstacles that you hopefully will not run into. :pray:</p>
+<ul>
+<li><p>Make sure your R and Rstudio version is up-to-date. <a href="https://bootstrappers.umassmed.edu/bootstrappers-courses/courses/rCourse/Additional_Resources/Updating_R.html">Here</a> you can find how to update R and Rstudio.</p></li>
+<li><p>Steps of creating blogdown in Rstudio, github repo and Netlify</p></li>
+</ul>
+<p>General steps Recommended <a href="#fig:flow">1</a>:</p>
+<pre class="r"><code>DiagrammeR::grViz(&quot;digraph {
+graph [layout = dot, rankdir = LR]
+
+# define the global styles of the nodes. We can override these in box if we wish
+
+node [shape = rectangle, style = filled, fillcolor = Linen]
+First [label =  &#39;1. \n Create \n Github Repository&#39;]
+Second [label = &#39;2. \n Create R blogdown \n in R Studio&#39;]
+Third [label= &#39;3. \n Deploy the web \n by Netlify&#39;]
+
+# edge definitions with the node IDs
+First -&gt; Second -&gt; Third
+}&quot;, height=150)</code></pre>
+<div class="figure"><span id="fig:flow"></span>
+<div id="htmlwidget-1" style="width:672px;height:150px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"diagram":"digraph {\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\n\nnode [shape = rectangle, style = filled, fillcolor = Linen]\nFirst [label =  \"1. \n Create \n Github Repository\"]\nSecond [label = \"2. \n Create R blogdown \n in R Studio\"]\nThird [label= \"3. \n Deploy the web \n by Netlify\"]\n\n# edge definitions with the node IDs\nFirst -> Second -> Third\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 1: A flow chart.
+</p>
+</div>
+<ol style="list-style-type: decimal">
+<li>I highly recommend you create a Github repository <strong>before</strong> you create blogdown as we have to use Github repo <code>&lt;repo name&gt;</code> to store all blogdown source files and deploy the <code>_public_</code> folder by Netlify.Here are the steps that needs to pay attention when using Github:</li>
+</ol>
+<ul>
+<li>Click the <em>Clone or download</em> green button and copy URL.</li>
+<li>In Rstudio terminal <strong>Change</strong> directory to Github repo you just created <code>&lt;repo name&gt;</code> by using <code>cd &lt;repo name&gt;</code>.</li>
+<li>Run <code>git clone &lt;GitHub URL&gt;</code> to clone new repository.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Build your blogdown in R Studio. I believe this step is easy to find either by watching the great <a href="https://resources.rstudio.com/wistia-rstudio-conf-2018-2/create-and-maintain-websites-with-r-markdown-and-blogdown-yihui-xie-2">RStudio Blogdown Webnair Video 2018</a> to get started or read some parts in the book by Yihui. You can refer to my previous blog about <a href="https://yuandu.netlify.com/2019/07/07/create-your-own-logo/">change to your own logo</a>. You should decide if you will use R markdown or Markdown for each blog.</li>
+</ol>
+<ul>
+<li>A tip to select multiple items to commit is by <code>git add .</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and <code>git commit -m "your message"</code> and <code>git push origin master</code> in the terminal.</li>
+<li>Add a file for the post that contains pictures. To reference the picture from the post, a folder should be created under path <code>static/post</code>.</li>
+<li>Sometimes the <code>Viewer</code> doesn’t display the content. What worked for me is that I restart the R session and render my post with <strong><code>blogdown::serve_site()</code></strong> manually in the Console.Also, try to update packages by using <code>update.packages(ask = FALSE, checkBuilt = TRUE)</code></li>
+<li>My post that’s written by R markdown doesn’t generate html file and then the blog coudln’t be deployed. so by manually <strong>Knit</strong> to html to generate the file solved the problem.</li>
+<li>Add emojis. In <code>config.toml</code>, put <code>enableEmoji = true</code> to enable the function. You can find emoji cheatsheet <a href="https://www.webfx.com/tools/emoji-cheat-sheet/">here</a>.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Deploy the website on netlify for free requires below steps:</li>
+</ol>
+<ul>
+<li>Create a netlify account by linking with Github</li>
+<li>Name your website in <code>config.toml</code> file under <code>baseurl =</code>. followed by the netlify subdomain <code>.netlify.com/</code>. Remember to have <strong>backslash “/”</strong> at the end.</li>
+<li>Add the build settings. Push the “hugo” as the Build command and “public” as the Publish directory.
+{{&lt; figure src=“NetlifySet.png” title="" lightbox=“true” &gt;}}
+# <img src="/post/2019-07-12-create-and-pushlish-rblogdown-by-netlify_files/NetlifySet.#png" /></li>
+<li>check Hugo version <code>blogdown::hugo_version()</code></li>
+</ul>
+<p>Hope above solutions are helpful to you. :beers:</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>There is a space between “add” and “.”<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>

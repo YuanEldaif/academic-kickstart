@@ -7,6 +7,7 @@ categories:
   - R
 tags:
   - Tidytext
+  - Tidyverse
 subtitle: ''
 summary: ''
 authors: []

@@ -16,7 +16,7 @@ tags:
   - Reference
 ---
 
-  Recently, I searched a few pretty cool tools for R-based hands-on references.
+  Recently, I discovered a few pretty cool tools, R-based and easy to follow.
 
 - **R Presentation Themes**
 
@@ -25,10 +25,10 @@ tags:
       2.  **Power of interchange.** You can include chunks of R code and rendered output like plots, results, tables, etc. in your slides
       3.  **Version control and sharing.** You can use git for version control and share your GitHub repository
 
-  +  My current favorate [**Xaringan**](https://github.com/yihui/xaringan/wiki/Themes) [nanja-theme](https://github.com/emitanaka/ninja-theme) developed by Emi Tanaka.
+  +  My current favorate [**Xaringan**](https://github.com/yihui/xaringan/wiki/Themes) [nanja-theme](https://github.com/emitanaka/ninja-theme) was developed by Emi Tanaka.
 
 
-- **Data Cleaning/Data Wrangling tool kit-Tidyverse**
+- **Data Cleaning/Data Wrangling tool kit - Tidyverse**
 
   +  **Book** [R for Data Science](https://r4ds.had.co.nz/) by Garrett Grolemund & Hadley Wickham.
 

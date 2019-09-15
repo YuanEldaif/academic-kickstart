@@ -35,7 +35,6 @@ education:
   courses:
   - course: PhD student in Big Data Analytics
     institution: University of Central Florida
-    year: ""
   - course: M.S. in Statistical Computing - Data Mining
     institution: University of Central Florida
     year: 2015

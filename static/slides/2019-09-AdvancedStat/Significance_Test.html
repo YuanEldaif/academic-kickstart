@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Significance Test</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Yuan Du   <span>&lt;i class="fab  fa-linkedin faa-float animated "&gt;&lt;/i&gt;&amp;nbsp;https://www.linkedin.com/in/yuaneldaif/</span>" />
+    <link href="libs/remark-css/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="libs/fontawesome/js/fontawesome-all.min.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/viz/viz.js"></script>
+    <link href="libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding/grViz.js"></script>
+    <link rel="stylesheet" href="assets\ninjutsu.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Significance Test
+## ⚔<br/> general guidelines
+### <br><br>Yuan Du   <span>&lt;i class="fab  fa-linkedin faa-float animated "&gt;&lt;/i&gt;&amp;nbsp;https://www.linkedin.com/in/yuaneldaif/</span>
+### <br>09-10-2019<br><br><span>&lt;i class="fas  fa-link faa-vertical animated " style=" color:white;"&gt;&lt;/i&gt;&amp;nbsp;https://yuandueldaif.netlify.com</span>
+
+---
+
+layout: false
+class: bg-main3 split-30 hide-slide-number
+
+.column[
+
+]
+.column.slide-in-right[.content.vmiddle[
+.sliderbox.bg-main2.vmiddle[
+.font5[Welcome!]
+]
+]]
+
+
+
+
+---
+class: bg-main1
+# Recap from Statistical Basics course
+
+### Dataset (Column, Row) ✔️
+
+--
+### Data type ✔️
+
+--
+### Scatter plot, bar chart, etc ✔️
+
+--
+### Interpret significance test ✔️
+
+--
+&lt;br&gt;
+###For more statistical classes please contact:
+
+###FH Research Advancement and Support &lt;fh.ras@AdventHealth.com&gt; or Shelly &lt;Shelley.Watson@AdventHealth.com&gt;.
+---
+class: bg-main1
+
+# Data Type
+
+<div id="htmlwidget-fca338629cbd77e95d01" style="width:504px;height:504px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fca338629cbd77e95d01">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = TB]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\n# define arrow\nedge [color = grey, arrowhead = none, arrowtail = none]\n\nChar [label = \"Qualitative (Categorical) \n  Variables \", shape = folder, fillcolor = Beige]\nNum [label = \"Quantatitive (Numerical) \nVariables\", shape = folder, fillcolor = Beige]\nA [label =  \"Nominal\"]\nB [label =  \"Binary\"]\n\nC [label= \"Interval\"]\nD [label= \"Ratio\"]\nE [label= \"Ordinal\"]\n\n# edge definitions with the node IDs\n{Char}  -> A -> B\n{Num}  -> C -> D -> E\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+---
+class: middle center bg-main1
+#Chart suggestions
+
+![ ](https://blog-sap.com/analytics/files/2016/12/12.9.vinay_chart.jpg)
+
+
+---
+class: bg-main1
+#P-value
+
+###- P-value or significance is a probability, thus bounded by 0 and 1. 
+
+--
+###- A test p-value provides the probability indicating statistical significance.
+
+--
+###- If the p-value is less than 0.05 (typically used value for statistical testing), then the study results are statistically significant.
+
+--
+&lt;br&gt;
+###.yellow[**Note**] There is an ongoing debate on miss-using p-value. and New England Jounal of Medicine in July,2019 published the [new Statistical Reporting Guidelines](https://www.nejm.org/author-center/new-manuscripts). 
+
+---
+class: split-two white
+
+.column.bg-main1[.content[
+# Interpret significance test
+--
+###There is a statistically significant difference/reduction/increase on .yellow[outcome] between groups/pre&amp;post (.green[p-value=...]).
+
+]]
+.column.bg-main2[.content.vmiddle.center[
+###.green[Example 1:] The mean time score difference from pre to post is 5.18 compared to 14.45. There is a statistically significant increase in time scores from pre to post (p-value &lt;0.001) using .black[paired sample t test].
+
+--
+&lt;br&gt;&lt;br&gt;
+###.yellow[Example 2:] Gender and ASA are independent based on the .black[Chi-square test] (p-value = .8826). The percentage of female and male patients is not different between the ASA types.
+
+
+]]
+
+---
+class: bg-main1
+
+# Class Objectives
+![](https://media.giphy.com/media/vx1S8MddJ11JQLTXaB/giphy.gif)
+## <span>&lt;i class="fas  fa-heart faa-horizontal animated "&gt;&lt;/i&gt;&amp;nbsp;Let's get started!</span>
+
+--
+###- Construct hypothesis 
+
+--
+##.green[Outcome is numerical] (- Parametric test &amp; - Non-parametric test)
+
+--
+##.yellow[Outcome is categorical]
+
+
+---
+class: bg-main1
+background-image: url(https://i.imgflip.com/vghl4.jpg)
+
+---
+class: split-two white
+
+.column.bg-main1[.content[
+# Hypothesis
+&lt;br&gt;
+###- Null hypothesis (H0): Assumption of the test holds and is failed to be rejected at some level of significance.
+&lt;br&gt;
+###- Alternate hypothesis (H1): Assumption of the test does not hold and is rejected at some level of significance.
+
+]]
+.column.bg-main2[.content.vmiddle.center[
+###**Example**: suppose someone claims that 20 (80%) of 25 patients who received drug A were cured, compared to 12 (48%) of 25 patients who received drug B. 
+
+--
+###- H0: the two treatments are equally effective and the observed difference arose by chance
+&lt;br&gt;
+###- H1: one treatment is better than the other. 
+
+
+]]
+
+---
+class: bg-main1
+
+###.white[Side note:] However, it is essential to note that the P value does not provide a direct answer. Let us assume in this case the statistician does a significance test and gets a P value = .04, meaning that the difference is statistically significant (P &lt; .05). But as explained earlier, this does not mean that there is a 4% probability that the null hypothesis is true and 96% chance that the alternative hypothesis is true. The P value is a frequential probability and it provides the information that there is a 4% probability of obtaining such a difference between the cure rates, if the null hypothesis is true. 
+
+&lt;br&gt;
+###In probability, this would be written as follows:
+
+###P(p1^=p1.red[/H0])
+---
+class: split-two white
+
+.column.bg-main1[.content[
+
+##**Assumptions for parametric test:**
+&lt;br&gt;
+###- Sample is derived from a population with a normal distribution.- a “bell-shaped curve.” 
+####(The sample size is large enough for the central limit theorem to lead to normality of averages) 
+
+###- Variance is homogeneous.
+
+###- Data are measured at interval level.
+
+]]
+.column.bg-main2[.content[
+ 
+##**Assumptions for nonparametric test is not free:**
+&lt;br&gt;
+###- Distinctly non-normal and cannot be transformed
+  
+###- Sample size is too small for the central limit theorem to lead to normality of averages
+
+###- Nominal or ordinal 
+
+]]
+
+---
+class: split-two white
+
+.column.bg-main1[.content[
+
+`(Repeated Measures are not included-more than two matched groups)`
+#.green[Most widely used parametric tests are:]
+&lt;br&gt;
+###- paired t-test (dependent/matached two groups) 
+###- (unpaired) t-test (independent two groups)
+###- ANOVA (more than two groups)
+###- Pearson correlation
+
+]]
+.column.bg-main2[.content[
+ 
+`(Repeated Measures are not included-more than two matched groups)`
+#.green[Most widely used non parametric tests are:]
+&lt;br&gt;
+###- Wilcoxon signed ranks test (paired two groups)
+###- Wilcoxon Mann whitney test (independent two groups)
+###- Kruskal Wallis test (more than two groups)
+###- Spearman correlation
+
+]]
+
+---
+class: middle center bg-main1
+
+#Significance test summary table (Simple version)
+![](https://ars.els-cdn.com/content/image/3-s2.0-B9780123736956000156-f15-27-9780123736956.gif?_)
+
+
+---
+class: split-60 white
+
+.column.bg-main1[.content[
+#.green[Example 1] (T test):
+
+&lt;br&gt;
+###Patients cared under Teaching physician group has lower cost. There is a significant lower cost in the teaching physician group than in the non teaching group ($10060 Vs $18631.37 , p-value&lt;0.001) by t test. 
+
+
+
+```r
+*t.test(Cost_Observed ~ Physician_Group, data = Data)
+```
+]]
+.column.bg-main3[.content.vmiddle.center[
+# This tells the `R` to run t test.
+]]
+---
+class: split-60 white
+
+.column.bg-main1[.content[
+###The output shows "Welch two sample t test" which means that the variance between two groups are not equal. Some software automatically show the right result for you like R. Some provide both results and you need to choose one based on the estimate pooled variance test result.
+###We can roughly check the variances:
+
+```r
+       Welch Two Sample t-test
+
+data:  Cost_Observed by Physician_Group
+*t = -10.305, df = 980.71, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -10203.21  -6938.82
+sample estimates:
+mean in group 1 mean in group 2 
+       10060.36        18631.37 
+```
+
+```
+## # A tibble: 2 x 4
+##   Physician_Group GroupVariance   Mean total.count
+##             &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;       &lt;int&gt;
+## 1               1    141627419. 10060.         357
+## 2               2    560053334. 18631.        1898
+```
+]]
+.column.bg-main3[.content.vmiddle.center[
+# This is the P-value for the t test
+]]
+
+
+---
+class: split-60 white
+
+.column.bg-main1[.content[
+###The output shows "Welch two sample t test" which means that the variance between two groups are not equal. Some software automatically show the right result for you like R. Some provide both results and you need to choose one based on the estimate pooled variance test result.
+
+###We can roughly check the variances:
+
+```r
+        Welch Two Sample t-test
+
+data:  Cost_Observed by Physician_Group
+t = -10.305, df = 980.71, p-value &lt; 2.2e-16 
+*alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -10203.21  -6938.82
+sample estimates:
+mean in group 1 mean in group 2 
+       10060.36        18631.37 
+```
+
+```
+## # A tibble: 2 x 4
+##   Physician_Group GroupVariance   Mean total.count
+##             &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;       &lt;int&gt;
+## 1               1    141627419. 10060.         357
+## 2               2    560053334. 18631.        1898
+```
+]]
+.column.bg-main3[.content.vmiddle.center[
+# This is the alternative hypothesis for the t test
+]]
+
+
+---
+class: split-60 white
+
+.column.bg-main1[.content[
+###The output shows "Welch two sample t test" which means that the variance between two groups are not equal. Some software automatically show the right result for you like R. Some provide both results and you need to choose one based on the estimate pooled variance test result.
+
+###We can roughly check the variances:
+
+```r
+        Welch Two Sample t-test
+
+data:  Cost_Observed by Physician_Group
+t = -10.305, df = 980.71, p-value &lt; 2.2e-16 
+alternative hypothesis: true difference in means is not equal to 0 
+95 percent confidence interval:
+ -10203.21  -6938.82
+sample estimates:
+*mean in group 1 mean in group 2
+*      10060.36        18631.37
+```
+
+```
+## # A tibble: 2 x 4
+##   Physician_Group GroupVariance   Mean total.count
+##             &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;       &lt;int&gt;
+## 1               1    141627419. 10060.         357
+## 2               2    560053334. 18631.        1898
+```
+]]
+.column.bg-main3[.content.vmiddle.center[
+# This is the mean by group for the t test
+&lt;br&gt;
+# The table below is the variance by group
+]]
+
+---
+class: bg-main1
+#.green[Example 2] (Wilcoxon Mann Whitney test)：
+
+--
+###Patients cared under Teaching physician group has lower cost. There is a significant lower LOS in the teaching physician group than in the non teaching group ( 3 days Vs 5 days, p-value&lt;0.001) by Wilcoxon Mann whitney test. 
+
+
+```
+## 
+## 	Wilcoxon rank sum test with continuity correction
+## 
+## data:  LOS_Observed by Physician_Group
+## W = 245515, p-value &lt; 2.2e-16
+## alternative hypothesis: true location shift is not equal to 0
+```
+
+```
+## # A tibble: 2 x 3
+##   Physician_Group Median total.count
+##             &lt;dbl&gt;  &lt;dbl&gt;       &lt;int&gt;
+## 1               1      3         357
+## 2               2      5        1898
+```
+---
+class: bg-main1
+#.green[Example 3] (ANOVA test)：
+
+--
+###Patients with different insurance has different cost (p-value=0.001) by ANOVA test.
+
+
+```
+##                  Df    Sum Sq   Mean Sq F value  Pr(&gt;F)   
+## Insurance_Type    6 1.099e+10 1.832e+09   3.664 0.00127 **
+## Residuals      2248 1.124e+12 5.000e+08                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+```
+## # A tibble: 7 x 3
+##   Insurance_Type            Mean total.count
+##   &lt;chr&gt;                    &lt;dbl&gt;       &lt;int&gt;
+## 1 COMMERCIAL - INDEMNITY  21453.          72
+## 2 MANAGED CARE            20340.         254
+## 3 MEDICAID                18070.         269
+## 4 MEDICARE                17117.        1343
+## 5 OTHER GOVERNMENT PAYORS 16963.         139
+## 6 SELF PAY                10873.         169
+## 7 WORKERS COMPENSATION    22032.           9
+```
+
+---
+class: bg-main1
+#.green[Example 4] (Kruskal Wallis test)：
+
+--
+###Patients with different insurance has different LOS (p-value=0.001) by Kruskal Wallis test.
+
+```
+## 
+## 	Kruskal-Wallis rank sum test
+## 
+## data:  LOS_Observed by Insurance_Type
+## Kruskal-Wallis chi-squared = 18.39, df = 6, p-value = 0.005329
+```
+
+```
+## # A tibble: 7 x 3
+##   Insurance_Type          Median total.count
+##   &lt;chr&gt;                    &lt;dbl&gt;       &lt;int&gt;
+## 1 COMMERCIAL - INDEMNITY       5          72
+## 2 MANAGED CARE                 5         254
+## 3 MEDICAID                     5         269
+## 4 MEDICARE                     5        1343
+## 5 OTHER GOVERNMENT PAYORS      5         139
+## 6 SELF PAY                     4         169
+## 7 WORKERS COMPENSATION         4           9
+```
+
+---
+class: bg-main1
+#.green[Example 5] (paired t test)：
+
+--
+###We Assume the two physician groups had an intervention on reducing medical cost by reducing number of consults. We have a post cost that could compare with previous cost.
+
+```
+## 
+## 	Paired t-test
+## 
+## data:  Cost by group
+## t = -1126.2, df = 2254, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -999.9643 -996.4881
+## sample estimates:
+## mean of the differences 
+##               -998.2262
+```
+
+```
+## # A tibble: 2 x 5
+##   group  count   mean     sd     max
+##   &lt;fct&gt;  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1 After   2255 16276. 22438. 242710.
+## 2 Before  2255 17274. 22439. 243710.
+```
+
+---
+class: bg-main1
+#.green[Example 6] (Wilcoxon signed ranks test)：
+
+--
+###We Assume the two physician groups had an intervention on reducing LOS by reducing number of consults. We have a post LOS that could compare with previous LOS.
+
+```
+## 
+## 	Wilcoxon signed rank test with continuity correction
+## 
+## data:  LOS by group
+## V = 0, p-value &lt; 2.2e-16
+## alternative hypothesis: true location shift is not equal to 0
+```
+
+```
+## # A tibble: 2 x 5
+##   group  count  mean    sd median
+##   &lt;fct&gt;  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 After   2255  6.38  7.86      4
+## 2 Before  2255  7.16  8.01      5
+```
+
+---
+class: split-two white
+
+.column.bg-main1[.content[
+`We want to see if there is correlation between Age and Cost.`
+#.green[Pearson correlation test:]
+&lt;br&gt;
+
+```r
+cor.test(Data$Age, Data$Cost_Observed)
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  Data$Age and Data$Cost_Observed
+## t = -0.67119, df = 2253, p-value = 0.5022
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.05538456  0.02715466
+## sample estimates:
+##         cor 
+## -0.01413904
+```
+
+]]
+.column.bg-main2[.content[
+ `We want to see if there is correlation between Number of consults and LOS.`
+#.green[Spearman correlation test:]
+&lt;br&gt;
+
+```r
+cor.test(Data$Number_of_consults, Data$Cost_Observed, method = "spearman")
+```
+
+```
+## 
+## 	Spearman's rank correlation rho
+## 
+## data:  Data$Number_of_consults and Data$Cost_Observed
+## S = 718489186, p-value &lt; 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.6240484
+```
+
+]]
+
+---
+class: bg-main1
+#Class Activity 1 (.green[Outcome is numerical]): 
+###In groups of 2-4: Please match the statement (white paper) with the appropriate statistical test (.green[green paper])
+&lt;br&gt;
+###Variables include Age, Gender, Cost, LOS, Readmission, Mortality, Physician Group, Insurance type
+
+&lt;br&gt;
+###.green[Note]: Assume normal distribution of Age, Cost; non-normal distribution of cost.
+
+---
+class: bg-main1
+#.yellow[Outcome is categorical]
+
+--
+#Chi-square test
+###Example: Test the hypothesis Insurance is independent of Gender at .05 significance level.
+
+```
+## Warning in chisq.test(table(Data$Insurance_Type, Data$Gender)): Chi-squared
+## approximation may be incorrect
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  table(Data$Insurance_Type, Data$Gender)
+## X-squared = 107.83, df = 6, p-value &lt; 2.2e-16
+```
+
+--
+
+```
+##                          
+##                           Female Male
+##   COMMERCIAL - INDEMNITY      36   36
+##   MANAGED CARE               113  141
+##   MEDICAID                   118  151
+##   MEDICARE                   682  661
+##   OTHER GOVERNMENT PAYORS     10  129
+##   SELF PAY                    57  112
+##   WORKERS COMPENSATION         4    5
+```
+
+---
+class: bg-main1
+#Enhanced Solution (easy way) - comebine insurance categories
+
+```
+##      Female Male
+## [1,]    113  141
+## [2,]    118  151
+## [3,]    682  661
+## [4,]     57  112
+## [5,]     50  170
+```
+
+--
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  rtbl
+## X-squared = 70.963, df = 4, p-value = 1.421e-14
+```
+
+---
+class: bg-main1
+#Fisher exact test (sample size is small/more than 25% of cells is less than 5)
+###Example: Test the hypothesis Insurance is independent of Race (Only American Indian and Asian).
+
+```
+##                          
+##                           AMERICAN INDIAN ASIAN BLACK OTHER WHITE
+##   COMMERCIAL - INDEMNITY                0     1    15     6    50
+##   MANAGED CARE                          1     1    21    10   221
+##   MEDICAID                              1     0    96     6   166
+##   MEDICARE                             11     6   184    60  1082
+##   OTHER GOVERNMENT PAYORS               0     0    21     5   113
+##   SELF PAY                              0     0    21     8   140
+##   WORKERS COMPENSATION                  0     0     0     0     9
+```
+
+--
+
+```
+##                         
+##                          AMERICAN INDIAN ASIAN
+##   COMMERCIAL - INDEMNITY               0     1
+##   MANAGED CARE                         1     1
+##   MEDICAID                             1     0
+##   MEDICARE                            11     6
+```
+
+```
+## 
+## 	Fisher's Exact Test for Count Data
+## 
+## data:  table(Prace$Insurance_Type, Prace$Race)
+## p-value = 0.8089
+## alternative hypothesis: two.sided
+```
+
+---
+class: bg-main1
+#Class Activity 2 （Outcome is .yellow[categorical] or .green[Numerical] ): 
+###In groups of 2-4: Please match the statement (white paper) with the appropriate statistical test (.purple[purple paper])
+&lt;br&gt;
+###Variables include Age, Gender, Cost, LOS, Readmission, Mortality, Physician Group, Insurance type
+
+&lt;br&gt;
+###.green[Note]: Assume normal distribution of Age, Cost; non-normal distribution of cost.
+
+---
+class: middle center bg-main1
+
+###*For additional significance test, please refer to*  [https://stats.idre.ucla.edu/other/mult-pkg/whatstat/]()
+
+&lt;br/&gt;
+
+#Thanks!
+&lt;br/&gt;
+### If you have statistical questions, please email [<span>&lt;i class="fas  fa-envelope faa-vertical animated "&gt;&lt;/i&gt;</span> &lt;br&gt;yuan.du@adventhealth.com]().
+&lt;br/&gt;
+
+
+####.yellow[*Slides are not to be distributed without permission of Research Institute.*]
+####Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

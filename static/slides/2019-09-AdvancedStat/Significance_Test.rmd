@@ -1,0 +1,570 @@
+---
+title: "Significance Test"
+subtitle: "⚔<br/>  general guidelines"
+author: "<br><br>Yuan Du&nbsp;&nbsp;&nbsp;`r anicon::faa('linkedin', animate='float', rtext='&nbsp;https://www.linkedin.com/in/yuaneldaif/')`"
+date: "<br>09-10-2019<br><br>`r anicon::faa('link', animate='vertical', rtext='&nbsp;https://yuandueldaif.netlify.com', color='white')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["kunoichi", "ninjutsu", "assets/ninjutsu.css"]
+    seal: true 
+    self_contained: false
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+layout: false
+class: bg-main3 split-30 hide-slide-number
+
+.column[
+
+]
+.column.slide-in-right[.content.vmiddle[
+.sliderbox.bg-main2.vmiddle[
+.font5[Welcome!]
+]
+]]
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(ggplot2)
+library(plotly)
+library(readxl)
+library(tidyverse)
+library(dplyr)
+# livedemosign <- function(top, left, deg) {
+#   htmltools::div("Live Demo!", class="faa-flash animated",
+#                  style=glue::glue("border:solid; border-color:black; position:absolute; top:{top}%; left:{left}%; font-size:36px; padding:4px; background-color:white; color:black;transform:rotate({deg}deg);")
+#                  )
+#}
+```
+
+---
+class: bg-main1
+# Recap from Statistical Basics course
+
+### Dataset (Column, Row) `r emo::ji("heavy_check_mark")`
+
+--
+### Data type `r emo::ji("heavy_check_mark")`
+
+--
+### Scatter plot, bar chart, etc `r emo::ji("heavy_check_mark")`
+
+--
+### Interpret significance test `r emo::ji("heavy_check_mark")`
+
+--
+<br>
+###For more statistical classes please contact:
+
+###FH Research Advancement and Support <fh.ras@AdventHealth.com> or Shelly <Shelley.Watson@AdventHealth.com>.
+---
+class: bg-main1
+
+# Data Type
+
+```{r, echo=FALSE, message=FALSE}
+#install.packages("DiagrammeR")
+DiagrammeR::grViz("digraph {
+
+graph [layout = dot, rankdir = TB]
+
+# define the global styles of the nodes. We can override these in box if we wish
+node [shape = rectangle, style = filled, fillcolor = Linen]
+
+# define arrow
+edge [color = grey, arrowhead = none, arrowtail = none]
+
+Char [label = 'Qualitative (Categorical) \n  Variables ', shape = folder, fillcolor = Beige]
+Num [label = 'Quantatitive (Numerical) \nVariables', shape = folder, fillcolor = Beige]
+A [label =  'Nominal']
+B [label =  'Binary']
+
+C [label= 'Interval']
+D [label= 'Ratio']
+E [label= 'Ordinal']
+
+# edge definitions with the node IDs
+{Char}  -> A -> B
+{Num}  -> C -> D -> E
+}")
+```
+
+---
+class: middle center bg-main1
+#Chart suggestions
+
+![ ](https://blog-sap.com/analytics/files/2016/12/12.9.vinay_chart.jpg)
+
+
+---
+class: bg-main1
+#P-value
+
+###- P-value or significance is a probability, thus bounded by 0 and 1. 
+
+--
+###- A test p-value provides the probability indicating statistical significance.
+
+--
+###- If the p-value is less than 0.05 (typically used value for statistical testing), then the study results are statistically significant.
+
+--
+<br>
+###.yellow[**Note**] There is an ongoing debate on miss-using p-value. and New England Jounal of Medicine in July,2019 published the [new Statistical Reporting Guidelines](https://www.nejm.org/author-center/new-manuscripts). 
+
+---
+class: split-two white
+
+.column.bg-main1[.content[
+# Interpret significance test
+--
+###There is a statistically significant difference/reduction/increase on .yellow[outcome] between groups/pre&post (.green[p-value=...]).
+
+]]
+.column.bg-main2[.content.vmiddle.center[
+###.green[Example 1:] The mean time score difference from pre to post is 5.18 compared to 14.45. There is a statistically significant increase in time scores from pre to post (p-value <0.001) using .black[paired sample t test].
+
+--
+<br><br>
+###.yellow[Example 2:] Gender and ASA are independent based on the .black[Chi-square test] (p-value = .8826). The percentage of female and male patients is not different between the ASA types.
+
+
+]]
+
+---
+class: bg-main1
+
+# Class Objectives
+![](https://media.giphy.com/media/vx1S8MddJ11JQLTXaB/giphy.gif)
+## `r anicon::faa("heart", animate="horizontal", rtext="&nbsp;Let's get started!")`
+
+--
+###- Construct hypothesis 
+
+--
+##.green[Outcome is numerical] (- Parametric test & - Non-parametric test)
+
+--
+##.yellow[Outcome is categorical]
+
+
+---
+class: bg-main1
+background-image: url(https://i.imgflip.com/vghl4.jpg)
+
+---
+class: split-two white
+
+.column.bg-main1[.content[
+# Hypothesis
+<br>
+###- Null hypothesis (H0): Assumption of the test holds and is failed to be rejected at some level of significance.
+<br>
+###- Alternate hypothesis (H1): Assumption of the test does not hold and is rejected at some level of significance.
+
+]]
+.column.bg-main2[.content.vmiddle.center[
+###**Example**: suppose someone claims that 20 (80%) of 25 patients who received drug A were cured, compared to 12 (48%) of 25 patients who received drug B. 
+
+--
+###- H0: the two treatments are equally effective and the observed difference arose by chance
+<br>
+###- H1: one treatment is better than the other. 
+
+
+]]
+
+---
+class: bg-main1
+
+###.white[Side note:] However, it is essential to note that the P value does not provide a direct answer. Let us assume in this case the statistician does a significance test and gets a P value = .04, meaning that the difference is statistically significant (P < .05). But as explained earlier, this does not mean that there is a 4% probability that the null hypothesis is true and 96% chance that the alternative hypothesis is true. The P value is a frequential probability and it provides the information that there is a 4% probability of obtaining such a difference between the cure rates, if the null hypothesis is true. 
+
+<br>
+###In probability, this would be written as follows:
+
+###P(p1^=p1.red[/H0])
+---
+class: split-two white
+
+.column.bg-main1[.content[
+
+##**Assumptions for parametric test:**
+<br>
+###- Sample is derived from a population with a normal distribution.- a “bell-shaped curve.” 
+####(The sample size is large enough for the central limit theorem to lead to normality of averages) 
+
+###- Variance is homogeneous.
+
+###- Data are measured at interval level.
+
+]]
+.column.bg-main2[.content[
+ 
+##**Assumptions for nonparametric test is not free:**
+<br>
+###- Distinctly non-normal and cannot be transformed
+  
+###- Sample size is too small for the central limit theorem to lead to normality of averages
+
+###- Nominal or ordinal 
+
+]]
+
+---
+class: split-two white
+
+.column.bg-main1[.content[
+
+`(Repeated Measures are not included-more than two matched groups)`
+#.green[Most widely used parametric tests are:]
+<br>
+###- paired t-test (dependent/matached two groups) 
+###- (unpaired) t-test (independent two groups)
+###- ANOVA (more than two groups)
+###- Pearson correlation
+
+]]
+.column.bg-main2[.content[
+ 
+`(Repeated Measures are not included-more than two matched groups)`
+#.green[Most widely used non parametric tests are:]
+<br>
+###- Wilcoxon signed ranks test (paired two groups)
+###- Wilcoxon Mann whitney test (independent two groups)
+###- Kruskal Wallis test (more than two groups)
+###- Spearman correlation
+
+]]
+
+---
+class: middle center bg-main1
+
+#Significance test summary table (Simple version)
+![](https://ars.els-cdn.com/content/image/3-s2.0-B9780123736956000156-f15-27-9780123736956.gif?_)
+
+
+---
+class: split-60 white
+
+.column.bg-main1[.content[
+#.green[Example 1] (T test):
+
+<br>
+###Patients cared under Teaching physician group has lower cost. There is a significant lower cost in the teaching physician group than in the non teaching group ($10060 Vs $18631.37 , p-value<0.001) by t test. 
+
+```{r, echo=F}
+library(readxl)
+library(tidyverse)
+library(dplyr)
+COPD <- read_excel("C:/Work/R/Presentation/Significance Test/Data/COPD.xlsx") 
+Data<- filter(COPD, Outcome_Cases_Cost == 1 & Outcome_Cases_LOS == 1 & Outcome_Cases_Mortality ==1)
+```
+```{r, eval=F }
+t.test(Cost_Observed ~ Physician_Group, data = Data) #<<
+```
+]]
+.column.bg-main3[.content.vmiddle.center[
+# This tells the `R` to run t test.
+]]
+---
+class: split-60 white
+
+.column.bg-main1[.content[
+###The output shows "Welch two sample t test" which means that the variance between two groups are not equal. Some software automatically show the right result for you like R. Some provide both results and you need to choose one based on the estimate pooled variance test result.
+###We can roughly check the variances:
+```{r, eval=F}
+
+       Welch Two Sample t-test
+
+data:  Cost_Observed by Physician_Group
+t = -10.305, df = 980.71, p-value < 2.2e-16 #<<
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -10203.21  -6938.82
+sample estimates:
+mean in group 1 mean in group 2 
+       10060.36        18631.37 
+```
+```{r, echo = FALSE}
+group_by(Data, Physician_Group) %>% 
+      summarise(GroupVariance=var(Cost_Observed), Mean=mean(Cost_Observed),total.count=n())
+```
+]]
+.column.bg-main3[.content.vmiddle.center[
+# This is the P-value for the t test
+]]
+
+
+---
+class: split-60 white
+
+.column.bg-main1[.content[
+###The output shows "Welch two sample t test" which means that the variance between two groups are not equal. Some software automatically show the right result for you like R. Some provide both results and you need to choose one based on the estimate pooled variance test result.
+
+###We can roughly check the variances:
+```{r, eval=F}
+        Welch Two Sample t-test
+
+data:  Cost_Observed by Physician_Group
+t = -10.305, df = 980.71, p-value < 2.2e-16 
+alternative hypothesis: true difference in means is not equal to 0 #<<
+95 percent confidence interval:
+ -10203.21  -6938.82
+sample estimates:
+mean in group 1 mean in group 2 
+       10060.36        18631.37 
+```
+```{r, echo = FALSE}
+group_by(Data, Physician_Group) %>% 
+      summarise(GroupVariance=var(Cost_Observed), Mean=mean(Cost_Observed),total.count=n())
+```
+]]
+.column.bg-main3[.content.vmiddle.center[
+# This is the alternative hypothesis for the t test
+]]
+
+
+---
+class: split-60 white
+
+.column.bg-main1[.content[
+###The output shows "Welch two sample t test" which means that the variance between two groups are not equal. Some software automatically show the right result for you like R. Some provide both results and you need to choose one based on the estimate pooled variance test result.
+
+###We can roughly check the variances:
+```{r, eval=F}
+        Welch Two Sample t-test
+
+data:  Cost_Observed by Physician_Group
+t = -10.305, df = 980.71, p-value < 2.2e-16 
+alternative hypothesis: true difference in means is not equal to 0 
+95 percent confidence interval:
+ -10203.21  -6938.82
+sample estimates:
+mean in group 1 mean in group 2 #<<
+       10060.36        18631.37 #<<
+```
+```{r, echo = FALSE}
+group_by(Data, Physician_Group) %>% 
+      summarise(GroupVariance=var(Cost_Observed), Mean=mean(Cost_Observed),total.count=n())
+```
+]]
+.column.bg-main3[.content.vmiddle.center[
+# This is the mean by group for the t test
+<br>
+# The table below is the variance by group
+]]
+
+---
+class: bg-main1
+#.green[Example 2] (Wilcoxon Mann Whitney test)：
+
+--
+###Patients cared under Teaching physician group has lower cost. There is a significant lower LOS in the teaching physician group than in the non teaching group ( 3 days Vs 5 days, p-value<0.001) by Wilcoxon Mann whitney test. 
+
+```{r, echo = FALSE }
+wilcox.test(LOS_Observed ~ Physician_Group, data = Data)
+library(dplyr)
+group_by(Data, Physician_Group) %>% 
+      summarise( Median=median(LOS_Observed),total.count=n())
+```
+---
+class: bg-main1
+#.green[Example 3] (ANOVA test)：
+
+--
+###Patients with different insurance has different cost (p-value=0.001) by ANOVA test.
+
+```{r, echo=FALSE}
+summary(aov(Cost_Observed ~ Insurance_Type, data = Data))
+group_by(Data, Insurance_Type) %>% 
+      summarise( Mean=mean(Cost_Observed),total.count=n())
+```
+
+---
+class: bg-main1
+#.green[Example 4] (Kruskal Wallis test)：
+
+--
+###Patients with different insurance has different LOS (p-value=0.001) by Kruskal Wallis test.
+```{r, echo = FALSE }
+kruskal.test(LOS_Observed ~ Insurance_Type, data = Data)
+library(dplyr)
+group_by(Data, Insurance_Type) %>% 
+      summarise( Median=median(LOS_Observed),total.count=n()) 
+```
+
+---
+class: bg-main1
+#.green[Example 5] (paired t test)：
+
+--
+###We Assume the two physician groups had an intervention on reducing medical cost by reducing number of consults. We have a post cost that could compare with previous cost.
+```{r, echo = FALSE}
+library(dplyr)
+# Cost_pre<- select(Data, Cost_Observed)
+# Cost_post<- select(Data，Post_Cost)
+Cost_Pre<-Data$Cost_Observed
+Cost_post<-Data$Post_Cost
+
+PairCost <- data.frame( 
+                group = rep(c("Before", "After"), each =2255),
+                Cost = c(Cost_Pre,  Cost_post)
+                )
+t.test(Cost ~ group, data = PairCost， paired = TRUE )
+```
+```{r, echo = FALSE}
+#Cost Summary by group
+group_by(PairCost, group) %>%
+  summarise(
+    count = n(),
+    mean = mean(Cost, na.rm = TRUE),
+    sd = sd(Cost, na.rm = TRUE),
+    max = max(Cost, na.rm = TRUE)
+  )
+# library("ggpubr")
+# ggboxplot(PairCost, x = "group", y = "Cost", 
+#           color = "group", palette = c("#00AFBB", "#E7B800"),
+#           order = c("Before", "After"),
+#           ylab = "Cost", xlab = "Groups")
+#shapiro.test(Data$Cost_Observed)
+```
+
+---
+class: bg-main1
+#.green[Example 6] (Wilcoxon signed ranks test)：
+
+--
+###We Assume the two physician groups had an intervention on reducing LOS by reducing number of consults. We have a post LOS that could compare with previous LOS.
+```{r, echo = FALSE}
+library(dplyr)
+# Cost_pre<- select(Data, Cost_Observed)
+# Cost_post<- select(Data，Post_Cost)
+LOS_Pre<-Data$LOS_Observed
+LOS_post<-Data$Post_LOS
+
+PairLOS <- data.frame( 
+                group = rep(c("Before", "After"), each =2255),
+                LOS = c(LOS_Pre,  LOS_post)
+                )
+wilcox.test(LOS ~ group, data = PairLOS， paired = TRUE )
+#LOS Summary by group
+group_by(PairLOS, group) %>%
+  summarise(
+     count = n(),
+    mean = mean(LOS, na.rm = TRUE),
+    sd = sd(LOS, na.rm = TRUE),
+    median = median(LOS, na.rm = TRUE)
+  )
+```
+
+---
+class: split-two white
+
+.column.bg-main1[.content[
+`We want to see if there is correlation between Age and Cost.`
+#.green[Pearson correlation test:]
+<br>
+```{r}
+cor.test(Data$Age, Data$Cost_Observed)
+```
+
+]]
+.column.bg-main2[.content[
+ `We want to see if there is correlation between Number of consults and LOS.`
+#.green[Spearman correlation test:]
+<br>
+```{r, warning=FALSE}
+cor.test(Data$Number_of_consults, Data$Cost_Observed, method = "spearman")
+```
+
+]]
+
+---
+class: bg-main1
+#Class Activity 1 (.green[Outcome is numerical]): 
+###In groups of 2-4: Please match the statement (white paper) with the appropriate statistical test (.green[green paper])
+<br>
+###Variables include Age, Gender, Cost, LOS, Readmission, Mortality, Physician Group, Insurance type
+
+<br>
+###.green[Note]: Assume normal distribution of Age, Cost; non-normal distribution of cost.
+
+---
+class: bg-main1
+#.yellow[Outcome is categorical]
+
+--
+#Chi-square test
+###Example: Test the hypothesis Insurance is independent of Gender at .05 significance level.
+```{r,echo = FALSE}
+chisq.test(table(Data$Insurance_Type, Data$Gender))
+```
+
+--
+```{r,echo = FALSE}
+tbl<-table(Data$Insurance_Type, Data$Gender)  
+tbl
+```
+
+---
+class: bg-main1
+#Enhanced Solution (easy way) - comebine insurance categories
+```{r,echo = FALSE}
+rtbl<-rbind(tbl["MANAGED CARE",],tbl["MEDICAID",], tbl["MEDICARE",], tbl["SELF PAY",],tbl["COMMERCIAL - INDEMNITY"，] + tbl["OTHER GOVERNMENT PAYORS"，] + tbl["WORKERS COMPENSATION"，])
+rtbl
+```
+
+--
+```{r,echo = FALSE}
+chisq.test(rtbl)
+```
+
+---
+class: bg-main1
+#Fisher exact test (sample size is small/more than 25% of cells is less than 5)
+###Example: Test the hypothesis Insurance is independent of Race (Only American Indian and Asian).
+```{r,echo = FALSE}
+table(Data$Insurance_Type, Data$Race) 
+```
+
+--
+```{r,echo = FALSE}
+Prace<- Data  %>% 
+           select(Insurance_Type, Race) %>%
+              filter(Race == "AMERICAN INDIAN" | Race == "ASIAN" )
+table(Prace$Insurance_Type, Prace$Race)
+fisher.test(table(Prace$Insurance_Type, Prace$Race))
+```
+
+---
+class: bg-main1
+#Class Activity 2 （Outcome is .yellow[categorical] or .green[Numerical] ): 
+###In groups of 2-4: Please match the statement (white paper) with the appropriate statistical test (.purple[purple paper])
+<br>
+###Variables include Age, Gender, Cost, LOS, Readmission, Mortality, Physician Group, Insurance type
+
+<br>
+###.green[Note]: Assume normal distribution of Age, Cost; non-normal distribution of cost.
+
+---
+class: middle center bg-main1
+
+###*For additional significance test, please refer to*  [https://stats.idre.ucla.edu/other/mult-pkg/whatstat/]()
+
+<br/>
+
+#Thanks!
+<br/>
+### If you have statistical questions, please email [`r anicon::faa("envelope", animate="vertical")` <br>yuan.du@adventhealth.com]().
+<br/>
+
+
+####.yellow[*Slides are not to be distributed without permission of Research Institute.*]
+####Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
